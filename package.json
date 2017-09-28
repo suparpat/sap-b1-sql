@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "query": "node index.js",
+    "convert": "node convert-woocommerce.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -21,7 +21,22 @@ async function start() {
         })
 
         let result = await pool.request()
-            .query(`select TOP 10 * from OITM`)
+            .query(`select TOP 100 T0.*,T1.[ItmsGrpNam],T2.[Name],T3.[U_UnitPrice],T3.[U_UoM] 
+            	from [dbo].[OITM] T0 
+            	inner join [dbo].[OITB] T1 on T0.[ItmsGrpCod]=T1.[ItmsGrpCod] 
+            	inner join [dbo].[@ITEMGROUP2] T2 on T0.[U_ItemGroup2]=T2.[Code]
+            	inner join [dbo].[@PRICELIST_DETAIL] T3 on T0.[ItemCode]=T3.[U_ItemCode] where T3.[Code]='1000'`)
+
+        // let result = await pool.request()
+        //     .query(`select TOP 10 T0.*,T1.ItmsGrpNam 
+        //     	from dbo.[OITM] T0 
+        //     	inner join dbo.[OITB] T1 on T0.ItmsGrpCod=T1.ItmsGrpCod`)
+
+        // let ItmsGrpCod = await pool.request()
+        //     .query(`select ItmsGrpCod,ItmsGrpNam from OITB`)
+
+
+        // console.log(ItmsGrpCod)
 
         pool.close()
         return result
@@ -39,8 +54,12 @@ start().then((r) => {
 	console.log('parsing')
 	
 	var temp = r.recordset
-	temp.unshift(cols)
+	cols.push('X_ItemBrand')
+	cols.push('X_ItemType')
+	cols.push('X_ItemPrice')
+    cols.push('X_UoM')
 
+	temp.unshift(cols)
 	csv.stringify(temp, (err, s) => {
 		fs.writeFileSync('output.csv', s)
 		console.log('done')
