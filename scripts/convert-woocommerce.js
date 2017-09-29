@@ -3,7 +3,7 @@ console.log('convert output to woocommerce import format')
 var csv = require('csv');
 var fs = require('fs');
 
-var input = fs.readFileSync('output_full.csv', 'utf8')
+var input = fs.readFileSync(__dirname + '/../outputs/output-products.csv', 'utf8')
 
 //specify output csv columns and configurations
 var columns = {
@@ -134,7 +134,7 @@ csv.parse(input, (err, data) => {
 
 
 		csv.stringify(output, (err, s) => {
-			fs.writeFileSync('output-converted.csv', s)
+			fs.writeFileSync(__dirname + '/../outputs/output-products-woocommerce.csv', s)
 			console.log('done')
 		})
 	}

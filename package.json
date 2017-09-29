@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "query": "node index.js",
-    "convert": "node convert-woocommerce.js",
+    "query-products": "node scripts/query-products.js",
+    "convert-woocommerce": "node scripts/convert-woocommerce.js",
+    "query-pricelists": "node scripts/query-pricelists.js",
+    "server-pricelists": "node scripts/server-pricelists.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "csv": "^1.1.1",
+    "express": "^4.16.0",
     "mssql": "^4.0.4"
   }
 }

@@ -63,7 +63,7 @@ start().then((r) => {
 
 	temp.unshift(cols)
 	csv.stringify(temp, (err, s) => {
-		fs.writeFileSync('output.csv', s)
+		fs.writeFileSync(__dirname + '/../outputs/output-products.csv', s)
 		console.log('done')
 	})
 
