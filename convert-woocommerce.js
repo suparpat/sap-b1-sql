@@ -5,6 +5,7 @@ var fs = require('fs');
 
 var input = fs.readFileSync('output_full.csv', 'utf8')
 
+//specify output csv columns and configurations
 var columns = {
 	"post_title": {"col": "ItemName"},
 	// "post_name": {"col": "ItemCode"},
@@ -64,12 +65,14 @@ csv.parse(input, (err, data) => {
 			var temp = []
 			temp.push(c)
 
+			//value
 			if(col['value']){
 				for(var i = 0; i < count; i++){
 					temp.push(col['value'])					
 				}
 			}
 
+			//col
 			else if(col['col'] && typeof col['col'] == "string"){
 				var findMatchCol = data[0].indexOf(col['col'])
 				if(findMatchCol > -1){
@@ -85,7 +88,10 @@ csv.parse(input, (err, data) => {
 				}else{
 					temp.push('no data')
 				}
-			}else if(col['col'] && Array.isArray(col['col'])){
+			}
+
+			//col array
+			else if(col['col'] && Array.isArray(col['col'])){
 				var t = ""
 				data.forEach((row, index) => {
 					if(index > 0){
@@ -98,7 +104,7 @@ csv.parse(input, (err, data) => {
 								}else{
 									t += row[findMatchCol]							
 								}
-								
+
 								if(colindex+1 < col['col'].length){
 									t += "\r\r"									
 								}
@@ -116,7 +122,6 @@ csv.parse(input, (err, data) => {
 		output = transposeArray(output)
 		var image_col = output[0].indexOf('imagesx')
 		var desc_col = output[0].indexOf('post_content')
-		// var sku_col = output[0].indexOf('sku')
 
 		//Filter out rows with no images
 		output = output.filter((o) => {
@@ -127,12 +132,6 @@ csv.parse(input, (err, data) => {
 			}
 		})
 
-		//Add UoM after SKU
-		// for(var i = 0; i < output.length; i++){
-		// 	var this_sku = output[i][sku_col]
-
-		// 	if(output[i][sku_col])
-		// }
 
 		csv.stringify(output, (err, s) => {
 			fs.writeFileSync('output-converted.csv', s)
@@ -141,13 +140,11 @@ csv.parse(input, (err, data) => {
 	}
 })
 
-// function addUoMTitle(title, row){
-// 	return title + ' (' + row[uomCol] + ')';
-// }
 
 function addUoMSKU(sku, row){
 	return sku + '-' + row[uomCol];
 }
+
 
 function stockStatus(onHandValue){
 	if(onHandValue > 0){
@@ -157,6 +154,7 @@ function stockStatus(onHandValue){
 	}
 }
 
+
 function convertImage(paths){
 	var temp = paths.split(";")
 	temp = temp.map((t) => {
@@ -165,13 +163,16 @@ function convertImage(paths){
 	return temp.join(" | ")
 }
 
+
 function fixItemType(type){
 	return type;
 }
 
+
 function fixBrand(raw_brand){
 	return raw_brand.substring(raw_brand.indexOf('-') + 1, raw_brand.length)
 }
+
 
 // https://stackoverflow.com/questions/17428587/transposing-a-2d-array-in-javascript
 function transposeArray(array){
