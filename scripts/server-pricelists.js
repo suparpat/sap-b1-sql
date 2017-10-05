@@ -28,14 +28,20 @@ csv.parse(input, (err, data) => {
 			r[skuCol] += "-" + r[uomCol]
 		})
 
-		app.listen(3000, function () {
+		app.listen(3000, () => {
 		  console.log('Example app listening on port 3000!')
 		})
 
 		// Example
 		// http://localhost:3000/?cuscode=ABC&skus=1234,1235
 		
-		app.get('/', function(req, res){
+		app.get('/', (req, res) => {
+
+			//TODO: 
+			// - map customer email with customer code
+			// - logging/monitoring to see usage
+			// - restrict requests to only from wordpress server
+
 			var cuscode = req.query.cuscode
 			var skus = (req.query.skus).split(",")
 

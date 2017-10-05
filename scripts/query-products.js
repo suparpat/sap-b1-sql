@@ -23,7 +23,7 @@ async function start() {
         var pricelist_code = config['pricelist_code']
 
         let result = await pool.request()
-            .query(`select TOP 100 T0.*,T1.[ItmsGrpNam],T2.[Name],T3.[U_UnitPrice],T3.[U_UoM] 
+            .query(`select T0.*,T1.[ItmsGrpNam],T2.[Name],T3.[U_UnitPrice],T3.[U_UoM] 
             	from [dbo].[OITM] T0 
             	inner join [dbo].[OITB] T1 on T0.[ItmsGrpCod]=T1.[ItmsGrpCod] 
             	inner join [dbo].[@ITEMGROUP2] T2 on T0.[U_ItemGroup2]=T2.[Code]

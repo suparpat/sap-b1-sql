@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "query-products": "node scripts/query-products.js",
+    "extract-image-names": "node scripts/extract-image-names.js",
     "convert-woocommerce": "node scripts/convert-woocommerce.js",
     "query-pricelists": "node scripts/query-pricelists.js",
     "server-pricelists": "node scripts/server-pricelists.js",
+    "ftp": "node scripts/ftp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +17,7 @@
   "dependencies": {
     "csv": "^1.1.1",
     "express": "^4.16.0",
+    "ftp": "^0.3.10",
     "mssql": "^4.0.4"
   }
 }

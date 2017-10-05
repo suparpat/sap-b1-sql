@@ -158,9 +158,9 @@ function stockStatus(onHandValue){
 function convertImage(paths){
 	var temp = paths.split(";")
 	temp = temp.map((t) => {
-		return t.substring(t.indexOf("picture") + 8, t.length)
+		return "http://localhost:8888/product_images/" + t.substring(t.indexOf("picture") + 8, t.length)
 	})
-	return temp.join(" | ")
+	return temp.join(",")
 }
 
 
